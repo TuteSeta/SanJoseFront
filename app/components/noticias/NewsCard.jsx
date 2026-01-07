@@ -18,20 +18,16 @@ export default function NewsCard({ item }) {
   return (
     <article
       className={[
-        // 🧱 igualar alturas
         "h-full flex flex-col",
-        // 🎨 base
         "group relative overflow-hidden rounded-2xl border border-app",
         "bg-[color-mix(in_srgb,var(--blanco)_80%,transparent)] backdrop-blur",
         "shadow-sm ring-1 ring-transparent",
-        // 🪄 hover: agranda + celeste suave
         "transform-gpu will-change-transform transition-all duration-500 ease-out",
         "hover:scale-[1.02] hover:shadow-md",
         "hover:bg-[color-mix(in_srgb,var(--celeste-sanjo)_14%,var(--blanco))]",
         "hover:ring-[color-mix(in_srgb,var(--celeste-sanjo)_35%,transparent)], cursor-pointer"
       ].join(" ")}
     >
-      {/* Imagen / placeholder */}
       <div className="relative h-48 w-full">
         {item.img ? (
           <>
@@ -45,7 +41,6 @@ export default function NewsCard({ item }) {
                 "h-48 w-full object-cover",
                 "transition-opacity duration-300",
                 loaded ? "opacity-100" : "opacity-0",
-                // acompaña el scale del contenedor en hover
                 "md:transition-transform md:duration-500 md:ease-out md:group-hover:scale-[1.03]"
               ].join(" ")}
               onLoad={() => setLoaded(true)}
@@ -66,7 +61,7 @@ export default function NewsCard({ item }) {
           </div>
         )}
 
-        {/* Overlay degradado sutil */}
+      
         <div
           className="
             pointer-events-none absolute inset-x-0 bottom-0 h-20
@@ -78,7 +73,6 @@ export default function NewsCard({ item }) {
         />
       </div>
 
-      {/* Contenido (crece para igualar alturas) */}
       <div className="flex flex-col p-4 flex-1">
         <a
           href={item.href}
@@ -89,7 +83,6 @@ export default function NewsCard({ item }) {
           {item.title}
         </a>
 
-        {/* Meta */}
         <div className="mt-2 flex flex-wrap items-center gap-2">
           {item.date && (
             <span className="rounded-full bg-[var(--surface)] px-2.5 py-1 text-xs font-medium text-app border border-app">

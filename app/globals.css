@@ -1,30 +1,28 @@
 @import "tailwindcss";
 
-/* ===========================
-   Tokens (modo único - claro)
-   =========================== */
+
 :root {
   /* Marca */
-  --azul-sanjo:   #151C47;  /* azul institucional oscuro */
-  --celeste-sanjo:#4fcaf7;  /* celeste vibrante de acento */
+  --azul-sanjo:   #151C47;  
+  --celeste-sanjo:#4fcaf7;  
   --blanco:       #ffffff;
   --negro:        #000000;
 
   /* Semánticas */
-  --background: #ffffff;   /* fondo app */
-  --foreground: #111111;   /* texto principal */
-  --surface:    #f5f6fa;   /* tarjetas/sections */
-  --border:     #e6e9ef;   /* bordes suaves */
-  --muted:      #666a72;   /* texto secundario */
+  --background: #ffffff;   
+  --foreground: #111111;   
+  --surface:    #f5f6fa;   
+  --border:     #e6e9ef;   
+  --muted:      #666a72;   
 
   /* Marca */
   --brand:  var(--azul-sanjo);
-  --accent: var(--negro); /* acentos discretos */
+  --accent: var(--negro); 
 
   /* Botones */
   --btn-bg:       var(--brand);
   --btn-fg:       var(--blanco);
-  --btn-hover-bg: #0f1433; /* azul más profundo */
+  --btn-hover-bg: #0f1433; 
   --btn-hover-fg: var(--blanco);
   
   /* Fuentes */
@@ -130,7 +128,7 @@ a:hover {
 }
 
 /* ===========================
-   Componentes base sugeridos
+   Componentes UI
    =========================== */
 .header {
   background: var(--blanco);

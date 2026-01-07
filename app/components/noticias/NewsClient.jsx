@@ -91,7 +91,7 @@ export default function NewsClient({ items = [] }) {
       ) : (
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
           {filtered.map((n) => (
-            // antes: <li key={n.href}>
+
             <li key={n.href} className="h-full">
               <NewsCard item={n} />
             </li>

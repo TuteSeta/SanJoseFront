@@ -5,13 +5,9 @@ import { Mail, Phone, MapPin, Facebook, Instagram, ArrowUpRight } from "lucide-r
 export default function FooterContacto() {
   return (
     <footer className="relative w-full overflow-x-hidden border-t border-slate-800/70 bg-black text-slate-200">
-      {/* glow */}
       <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[min(40rem,100vw)] md:w-[min(60rem,100vw)] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.18),rgba(34,197,94,0.12)_40%,transparent_70%)] blur-2xl" />
-
       <div className="relative mx-auto max-w-7xl px-6 py-12 md:px-10">
-        {/* 12 cols: brand 5 / contact 5 (más ancho) / social 2 */}
         <div className="grid grid-cols-1 gap-10 sm:gap-12 md:grid-cols-12">
-          {/* Brand */}
           <div className="text-center md:col-span-5 md:text-left">
             <h3 className="text-xl md:text-2xl font-semibold tracking-tight">Club de Basket San José</h3>
             <p className="mt-3 mx-auto md:mx-0 max-w-lg text-sm md:text-base leading-relaxed text-slate-400">
@@ -21,10 +17,9 @@ export default function FooterContacto() {
 
           {/* Contacto (más ancho) */}
           <div className="order-last md:order-none md:col-span-5">
-            {/* En md+ usamos 2 columnas; Email ocupa las 2 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <ContactItem
-                className="md:col-span-2"             // 👈 se expande en desktop
+                className="md:col-span-2"            
                 icon={<Mail className="h-4 w-4" />}
                 label="Email"
                 href="mailto:ramiromartinez3596@gmail.com"
@@ -97,7 +92,6 @@ function ContactItem({ icon, label, value, href, className = "" }) {
       </div>
       <div className="min-w-0">
         <p className="text-[10px] uppercase tracking-wide text-slate-400">{label}</p>
-        {/* En desktop permitimos wrap normal; en mobile/mediano, rompemos si hace falta */}
         <p className="text-slate-200 break-words break-all md:break-normal">{value}</p>
       </div>
     </a>
