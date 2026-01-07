@@ -4,7 +4,6 @@ import { setTimeout as delay } from "node:timers/promises";
 import * as cheerio from "cheerio";
 import { fetch } from "undici";
 
-
 async function fetchHtml(url) {
   const res = await fetch(url, {
     headers: {
@@ -24,7 +23,6 @@ function normalizeText(t) {
 
 function parseNewsCards($, baseUrl) {
   const items = [];
-
   $("a[href*='/lfb/noticia/'], article a[href*='/lfb/noticia/']").each((_, a) => {
     const $a = $(a);
     const href = new URL($a.attr("href"), baseUrl).toString();
@@ -39,7 +37,6 @@ function parseNewsCards($, baseUrl) {
         card.find("time, .date, .fecha, .post-date, .news-date").first().text()
       ) || null;
 
- 
     const img =
       card.find("img").attr("data-src") ||
       card.find("img").attr("src") ||
@@ -135,6 +132,7 @@ async function main() {
       console.warn("Detalle falló:", it.href, e.message);
     }
   }
+
 
   const data = {
     fetchedAt: new Date().toISOString(),
