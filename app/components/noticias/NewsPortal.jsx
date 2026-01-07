@@ -1,4 +1,3 @@
-// app/components/noticias/NewsPortal.jsx
 import fs from "node:fs/promises";
 import path from "node:path";
 import NewsClient from "./NewsClient";
@@ -12,20 +11,19 @@ export default async function NewsPortal() {
     const raw = await fs.readFile(filePath, "utf8");
     data = JSON.parse(raw);
   } catch {
-    // default vacío
+    
   }
 
   return (
     <section
       className={[
         "relative isolate min-h-[100svh] w-full",
-        // Fondo: gradiente suave con tokens
         "bg-[radial-gradient(120%_120%_at_10%_0%,color-mix(in_srgb,var(--blanco)_100%,transparent)_0%,",
         "color-mix(in_srgb,var(--celeste-sanjo)_18%,transparent)_45%,",
         "color-mix(in_srgb,var(--brand)_8%,transparent)_100%)]"
       ].join(" ")}
     >
-      {/* velo sutil para levantar blancos sin perder contraste */}
+      
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-[color-mix(in_srgb,var(--blanco)_70%,transparent)]" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 py-14 md:py-16">
