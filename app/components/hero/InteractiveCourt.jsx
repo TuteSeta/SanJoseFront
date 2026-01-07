@@ -18,10 +18,10 @@ export default function InteractiveCourt({ onHover, activePart = null }) {
     "transition-[fill,filter,transform] duration-300 motion-reduce:transition-none";
 
   // 🎨 Tokens
-  const COURT_FILL = "#EAF6FC"; // celeste muy claro (fondo)
+  const COURT_FILL = "#EAF6FC"; 
   const LINES_STROKE = "var(--negro)";
-  const AREA_ACTIVE = "var(--azul-sanjo)";     // azul fuerte
-  const AREA_INACTIVE = "var(--celeste-sanjo)"; // #00AEEF
+  const AREA_ACTIVE = "var(--azul-sanjo)";     
+  const AREA_INACTIVE = "var(--celeste-sanjo)"; 
 
   const mkAreaProps = (part) => {
     const active = isActive(part);
