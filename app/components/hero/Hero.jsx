@@ -65,7 +65,7 @@ export default function Hero() {
         className={`relative isolate overflow-hidden min-h-dvh w-full transition-opacity duration-700 ${
           mounted ? "opacity-100" : "opacity-0"
         }`}
-        // Fondo con gradiente basado en tokens (sin hex)
+        // Fondo con gradiente basado en tokens 
         style={{
           backgroundImage:
             "linear-gradient(135deg, var(--background) 0%, color-mix(in srgb, var(--brand) 8%, var(--background)) 40%, var(--surface) 100%)",
@@ -80,7 +80,6 @@ export default function Hero() {
 
           <p
             className="mt-4 max-w-prose text-center text-xl md:text-2xl leading-relaxed text-muted"
-            // Por si no tenés .text-muted en Tailwind, esto lo asegura
             style={{ color: "var(--muted)" }}
           >
             Pasión, formación y comunidad en la cancha.

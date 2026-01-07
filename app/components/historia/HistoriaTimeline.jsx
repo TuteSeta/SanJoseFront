@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
-function HitoContent({ item, onNext }) {
+function HitoContent({ item }) {
   return (
     <div className="flex flex-col gap-3 sm:gap-4 h-full">
       <span
@@ -11,45 +11,12 @@ function HitoContent({ item, onNext }) {
       >
         {item.year}
       </span>
-
       <h2 className="text-2xl sm:text-3xl font-extrabold leading-tight text-white drop-shadow">
         {item.title}
       </h2>
-
       <p className="text-sm sm:text-base leading-relaxed text-white/90 max-w-prose">
         {item.text}
       </p>
-
-      {onNext && (
-        <div className="pt-2">
-          <button
-            onClick={onNext}
-            className="group inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm border backdrop-blur-sm transition focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white/80"
-            style={{
-              borderColor: "color-mix(in srgb, white 40%, transparent)",
-              background: "color-mix(in srgb, rgba(255,255,255,0.06) 100%, transparent)",
-              color: "white",
-              outline: "none",
-            }}
-          >
-            Continuar
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              className="transition-transform duration-200 ease-in-out group-hover:translate-x-1"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14" />
-              <path d="M12 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-      )}
     </div>
   );
 }
@@ -82,25 +49,42 @@ export default function HistoriaTimeline({
   useEffect(() => {
     if (!items.length) return;
 
-    const obs = new IntersectionObserver(
-      (entries) => {
-        const best = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    let raf = 0;
 
-        if (best) {
-          const idx = Number(best.target.getAttribute("data-index"));
-          if (!Number.isNaN(idx)) setActive(idx);
+    const updateActive = () => {
+      const viewportCenter = navOffset + (window.innerHeight - navOffset) / 2;
+
+      let bestIdx = 0;
+      let bestDist = Infinity;
+
+      refs.current.forEach((el, idx) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const elCenter = rect.top + rect.height / 2;
+        const dist = Math.abs(elCenter - viewportCenter);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = idx;
         }
-      },
-      {
-        threshold: [0.35, 0.5, 0.65],
-        rootMargin: `-${navOffset}px 0px 0px 0px`,
-      }
-    );
+      });
 
-    refs.current.forEach((el) => el && obs.observe(el));
-    return () => obs.disconnect();
+      setActive(bestIdx);
+    };
+
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(updateActive);
+    };
+
+    updateActive(); // inicial
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, [items.length, navOffset]);
 
   const goTo = (idx) => {
@@ -135,7 +119,7 @@ export default function HistoriaTimeline({
 
       {/* Timeline wrapper */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-10 md:pb-16">
-        {/* Línea central solo en md+ */}
+        {/* Línea central */}
         <div className="absolute left-1/2 top-0 hidden h-full w-px -translate-x-1/2 bg-white/10 md:block" />
 
         <div className="space-y-10 md:space-y-16">
@@ -151,7 +135,7 @@ export default function HistoriaTimeline({
                 className="relative"
                 style={{ scrollMarginTop: `${navOffset + 16}px` }}
               >
-                {/* Fondo por item (opcional) */}
+                {/* Fondo por item */}
                 <div className="absolute inset-0 -z-10 opacity-60 rounded-2xl overflow-hidden">
                   <div className="absolute inset-0 bg-center bg-cover" style={{ backgroundImage: `url(${it.image})` }} />
                   <div
@@ -163,9 +147,9 @@ export default function HistoriaTimeline({
                   />
                 </div>
 
-                {/* Grid único: mobile 1 col, md 3 cols */}
+                
                 <div className="relative grid gap-6 md:gap-10 md:grid-cols-[1fr_auto_1fr] p-4 sm:p-6 md:p-8 rounded-2xl">
-                  {/* Columna izquierda (en md alterna) */}
+                  
                   <div className={isEven ? "md:order-1" : "md:order-3"}>
                     <div className="md:hidden">
                       <HitoImage item={it} />
@@ -179,7 +163,7 @@ export default function HistoriaTimeline({
                     </div>
                   </div>
 
-                  {/* Columna centro (punto) solo en md */}
+                  {/* Columna centro */}
                   <div className="hidden md:flex md:order-2 items-start justify-center pt-2">
                     <div
                       className={`h-6 w-6 rounded-full border-2 transition-all duration-300 ${isActive ? "scale-125 border-4" : ""}`}
@@ -192,7 +176,7 @@ export default function HistoriaTimeline({
                     />
                   </div>
 
-                  {/* Columna derecha (en md alterna) */}
+                  {/* Columna derecha */}
                   <div className={isEven ? "hidden md:block md:order-3" : "hidden md:block md:order-1"}>
                     {isEven ? (
                       <HitoContent item={it} onNext={idx < items.length - 1 ? () => goTo(idx + 1) : null} />

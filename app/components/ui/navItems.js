@@ -1,4 +1,3 @@
-// components/nav/navItems.js
 const NAV_ITEMS = [
   { label: "Noticias", href: "/pages/noticias", part: "leftKey" },
   { label: "Plantel",  href: "/pages/plantel",  part: "center" },
