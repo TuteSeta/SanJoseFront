@@ -1,0 +1,30 @@
+{
+  "name": "landingsanjose",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "preexport": "node scripts/scrape-lfb.js",
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start",
+    "static": "next build && next export",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "cheerio": "^1.1.2",
+    "framer-motion": "^12.23.22",
+    "lucide-react": "^0.545.0",
+    "next": "^16.1.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-icons": "^5.5.0",
+    "undici": "^7.16.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.4",
+    "tailwindcss": "^4"
+  }
+}

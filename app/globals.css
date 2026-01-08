@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+
+:root {
+  /* Marca */
+  --azul-sanjo:   #151C47;  
+  --celeste-sanjo:#4fcaf7;  
+  --blanco:       #ffffff;
+  --negro:        #000000;
+
+  /* Semánticas */
+  --background: #ffffff;   
+  --foreground: #111111;   
+  --surface:    #f5f6fa;   
+  --border:     #e6e9ef;   
+  --muted:      #666a72;   
+
+  /* Marca */
+  --brand:  var(--azul-sanjo);
+  --accent: var(--negro); 
+
+  /* Botones */
+  --btn-bg:       var(--brand);
+  --btn-fg:       var(--blanco);
+  --btn-hover-bg: #0f1433; 
+  --btn-hover-fg: var(--blanco);
+  
+  /* Fuentes */
+  --font-humane: "Humane", sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+}
+
+/* ===========================
+   Hard-disable dark modes UA
+   =========================== */
+html {
+  color-scheme: light;
+  forced-color-adjust: none;
+}
+
+html, body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* ========== Utilidades ========== */
+.bg-app      { background-color: var(--background); }
+.text-app    { color: var(--foreground); }
+.bg-surface  { background-color: var(--surface); }
+.border-app  { border-color: var(--border); }
+.text-muted  { color: var(--muted); }
+
+.text-brand  { color: var(--brand); }
+.bg-brand    { background-color: var(--brand); }
+.text-accent { color: var(--accent); }
+.bg-accent   { background-color: var(--accent); }
+
+/* Nuevo: celeste institucional */
+.text-celeste { color: var(--celeste-sanjo); }
+.bg-celeste   { background-color: var(--celeste-sanjo); }
+
+/* Links */
+a {
+  color: var(--brand);
+  text-underline-offset: 3px;
+}
+a:hover {
+  text-decoration: none;
+}
+
+/* ===========================
+   Botones (sin naranja)
+   =========================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 12px;
+  padding: 0.75rem 1.25rem;
+  font-weight: 700;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 1px solid transparent;
+  transition: transform 0.08s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.btn:hover {
+  background: var(--btn-hover-bg);
+  color: var(--btn-hover-fg);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(21,28,71,0.18);
+}
+.btn:active { transform: translateY(0); }
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(21,28,71,0.3);
+}
+
+/* Secundario (outline) */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 12px;
+  padding: 0.75rem 1.25rem;
+  font-weight: 700;
+  border: 1px solid var(--brand);
+  color: var(--brand);
+  background: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.08s ease, box-shadow 0.2s ease;
+}
+.btn-outline:hover {
+  background: color-mix(in srgb, var(--brand) 10%, transparent);
+  transform: translateY(-1px);
+}
+.btn-outline:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(21,28,71,0.3);
+}
+
+/* ===========================
+   Footer institucional (azul)
+   =========================== */
+.footer-institucional {
+  background: var(--brand);
+  color: var(--blanco);
+}
+
+/* ===========================
+   Componentes UI
+   =========================== */
+.header {
+  background: var(--blanco);
+  border-bottom: 1px solid var(--border);
+  color: var(--foreground);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-weight: 600;
+  padding: .25rem .5rem;
+  border-radius: 999px;
+  background: var(--negro);
+  color: var(--blanco);
+}
+
+/* Mejora de legibilidad para Humane */
+h1, h2, .title {
+  font-family: var(--font-humane);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+/* Texto general con Montserrat */
+body, p, a, button, input, span {
+  font-family: var(--font-montserrat);
+}
