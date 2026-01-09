@@ -1,4 +1,3 @@
-import Plantel from "../../components/plantel/Plantel.jsx";
 import NavBar from "../../components/ui/NavBar.jsx";
 import NAV_ITEMS from "../../components/ui/navItems.js";
 import HistoriaTimeline from "../../components/historia/HistoriaTimeline.jsx";
