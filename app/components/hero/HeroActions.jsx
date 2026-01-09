@@ -1,12 +1,12 @@
 export default function HeroActions() {
   return (
     <div className="mt-8 flex flex-col sm:flex-row gap-3 sm:items-center">
-      <a href="#socios" className="btn w-full sm:w-auto text-center">
+      <a href="/socios/register" className="btn w-full sm:w-auto text-center">
         Quiero asociarme
       </a>
 
       <a
-        href="#proyecto"
+        href="/socios"
         className="w-full sm:w-auto text-center rounded-full px-5 py-3 font-semibold transition"
         style={{
           border: "1px solid color-mix(in srgb, var(--foreground) 18%, transparent)",
@@ -14,7 +14,7 @@ export default function HeroActions() {
           background: "transparent",
         }}
       >
-        Conocer el proyecto
+        Ya soy socio
       </a>
     </div>
   );
