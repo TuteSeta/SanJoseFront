@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import NavBar from "../ui/NavBar";
 import InteractiveCourt from "./InteractiveCourt";
 import NAV_ITEMS from "../ui/navItems";
+import HeroContent from "./HeroContent";
+import HeroVisual from "./HeroVisual";
 
 export default function Hero() {
   const items = NAV_ITEMS;
@@ -37,7 +39,8 @@ export default function Hero() {
   const activePart = items[activeIndex]?.part ?? null;
 
   return (
-    <div className="min-h-dvh bg-app text-app">
+    <div className="bg-app text-app relative">
+      {/* Tooltip */}
       {tooltip.visible && (
         <div
           className="absolute z-50 px-3 py-2 text-sm font-semibold rounded-md shadow-lg pointer-events-none"
@@ -62,41 +65,26 @@ export default function Hero() {
       />
 
       <section
-        className={`relative isolate overflow-hidden min-h-dvh w-full transition-opacity duration-700 ${
+        className={`relative isolate overflow-hidden w-full transition-opacity duration-700 ${
           mounted ? "opacity-100" : "opacity-0"
         }`}
-        // Fondo con gradiente basado en tokens 
-        style={{
-          backgroundImage:
-            "linear-gradient(135deg, var(--background) 0%, color-mix(in srgb, var(--brand) 8%, var(--background)) 40%, var(--surface) 100%)",
-          color: "var(--foreground)",
-        }}
+       
       >
-        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-20 md:pt-24 pb-12 flex flex-col items-center">
-          <h1 className="text-center text-5xl md:text-7xl font-black tracking-widehumane leading-humane"
-              style={{ color: "var(--brand)" }}>
-            Union Deportiva San José
-          </h1>
+        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-20 md:pt-24 pb-12">
+          <div className="grid gap-10 lg:gap-12 lg:grid-cols-12 items-center">
+            <div className="lg:col-span-6">
+              <HeroContent />
+            </div>
 
-          <p
-            className="mt-4 max-w-prose text-center text-xl md:text-2xl leading-relaxed text-muted"
-            style={{ color: "var(--muted)" }}
-          >
-            Pasión, formación y comunidad en la cancha.
-          </p>
-
-          {/* Cancha */}
-          <div className="w-full mt-10">
-            <InteractiveCourt onHover={setTooltip} activePart={activePart} />
+            <div className="lg:col-span-6">
+              <HeroVisual>
+                <InteractiveCourt onHover={setTooltip} activePart={activePart} />
+              </HeroVisual>
+            </div>
           </div>
-
-          {/* CTA usando el sistema de botones de tu CSS global */}
-          <a href="#plantel" className="btn mt-8">
-            Ver plantel
-          </a>
         </div>
 
-        {/* Velo superior suave en tokens */}
+        {/* Velo superior suave */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0"
