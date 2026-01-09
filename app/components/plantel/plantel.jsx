@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { usePlantel } from '../../hooks/usePlantel';
+import { usePlantel } from '../../../hooks/usePlantel';
 import PlayerCard from './PlayerCard';
 
 export default function Plantel() {

@@ -71,7 +71,7 @@ export default function NewsHighlightsSection() {
           </p>
         </div>
 
-        <a href="/pages/noticias" className="text-sm font-semibold" style={{ color: "var(--brand)" }}>
+        <a href="/noticias" className="text-sm font-semibold" style={{ color: "var(--brand)" }}>
           Ver todas las noticias →
         </a>
       </div>
