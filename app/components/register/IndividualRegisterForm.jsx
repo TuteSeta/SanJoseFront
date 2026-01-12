@@ -4,6 +4,8 @@ import Divider from "./Divider";
 import MemberTypeCards from "./MemberTypeCards";
 
 export default function IndividualRegisterForm({
+  firstName, setFirstName,
+  lastName, setLastName,
   dni, setDni,
   email, setEmail,
   memberType, setMemberType,
@@ -17,6 +19,33 @@ export default function IndividualRegisterForm({
       <MemberTypeCards value={memberType} onChange={setMemberType} />
 
       <Divider label="Datos" />
+
+      {/* ✅ Nombre y apellido */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label className="text-sm font-semibold">Nombre</label>
+          <input
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            className="mt-2 w-full rounded-xl border border-app bg-white px-4 py-3 outline-none focus:ring-2 focus:ring-[color:rgba(21,28,71,0.18)]"
+            placeholder="Matías"
+            autoComplete="given-name"
+          />
+        </div>
+
+        <div>
+          <label className="text-sm font-semibold">Apellido</label>
+          <input
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            className="mt-2 w-full rounded-xl border border-app bg-white px-4 py-3 outline-none focus:ring-2 focus:ring-[color:rgba(21,28,71,0.18)]"
+            placeholder="Zarandón"
+            autoComplete="family-name"
+          />
+        </div>
+      </div>
+
+      {/* DNI + Email */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className="text-sm font-semibold">DNI</label>
@@ -43,6 +72,7 @@ export default function IndividualRegisterForm({
         </div>
       </div>
 
+      {/* Passwords */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className="text-sm font-semibold">Contraseña</label>

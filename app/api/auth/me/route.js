@@ -14,16 +14,19 @@ export async function GET(req) {
       token,
       new TextEncoder().encode(process.env.AUTH_SECRET)
     );
-console.log("JWT payload:", payload);
+    console.log("JWT payload:", payload);
 
     return NextResponse.json({
-        
+
       ok: true,
       user: {
         id: payload.sub,
         dni: payload.dni,
         email: payload.email,
-        app_role: payload.app_role,       
+        first_name: payload.first_name,
+        last_name: payload.last_name,
+        full_name: `${payload.first_name ?? ""} ${payload.last_name ?? ""}`.trim(),
+        app_role: payload.app_role,
         member_type: payload.member_type,
         member_number: payload.member_number,
       },

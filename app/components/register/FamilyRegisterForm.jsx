@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Divider from "./Divider";
 import MemberTypeCards from "./MemberTypeCards";
 import FamilySizePills from "./FamilySizePills";
@@ -8,6 +9,8 @@ import FamilyMemberCard from "./FamilyMemberCard";
 export default function FamilyRegisterForm({
   rDni, setRDni,
   rEmail, setREmail,
+  rFirstName, setRFirstName,
+  rLastName, setRLastName,
   rMemberType, setRMemberType,
   rPassword, setRPassword,
   rConfirmPassword, setRConfirmPassword,
@@ -15,6 +18,30 @@ export default function FamilyRegisterForm({
   members,
   updateMember,
 }) {
+  function isMinorMember(m) {
+    return Boolean(m?.is_minor ?? m?.isMinor ?? (m?.role === "MINOR") ?? (m?.member_type === "SOCIO_MENOR"));
+  }
+
+  useEffect(() => {
+    const email = (rEmail ?? "").toString().trim().toLowerCase();
+    if (!email) return;
+
+    members.forEach((m, idx) => {
+      if (!isMinorMember(m)) return;
+
+
+      if ((m?.email ?? "").toLowerCase() !== email) {
+        updateMember(idx, {
+          ...m,
+          email,
+          is_minor: true,
+          responsible_dni: rDni,
+        });
+      }
+    });
+
+  }, [rEmail, rDni]);
+
   return (
     <>
       <Divider label="Responsable" />
@@ -22,6 +49,30 @@ export default function FamilyRegisterForm({
       <div>
         <label className="text-sm font-semibold">Tipo de socio del responsable</label>
         <MemberTypeCards value={rMemberType} onChange={setRMemberType} />
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label className="text-sm font-semibold">Nombre (responsable)</label>
+          <input
+            value={rFirstName}
+            onChange={(e) => setRFirstName(e.target.value)}
+            className="mt-2 w-full rounded-xl border border-app bg-white px-4 py-3 outline-none focus:ring-2 focus:ring-[color:rgba(21,28,71,0.18)]"
+            placeholder="Matías"
+            autoComplete="given-name"
+          />
+        </div>
+
+        <div>
+          <label className="text-sm font-semibold">Apellido (responsable)</label>
+          <input
+            value={rLastName}
+            onChange={(e) => setRLastName(e.target.value)}
+            className="mt-2 w-full rounded-xl border border-app bg-white px-4 py-3 outline-none focus:ring-2 focus:ring-[color:rgba(21,28,71,0.18)]"
+            placeholder="Zarandón"
+            autoComplete="family-name"
+          />
+        </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -96,6 +147,8 @@ export default function FamilyRegisterForm({
             index={idx}
             member={m}
             updateMember={updateMember}
+            responsibleEmail={rEmail}
+            responsibleDni={rDni}
           />
         ))}
       </div>

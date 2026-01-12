@@ -25,6 +25,8 @@ export default function SociosRegisterPage() {
   const [memberType, setMemberType] = useState("SOCIO_SIMPLE");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
   // Family responsible
   const [rDni, setRDni] = useState("");
@@ -32,10 +34,12 @@ export default function SociosRegisterPage() {
   const [rMemberType, setRMemberType] = useState("SOCIO_SIMPLE");
   const [rPassword, setRPassword] = useState("");
   const [rConfirmPassword, setRConfirmPassword] = useState("");
+  const [rFirstName, setRFirstName] = useState("");
+  const [rLastName, setRLastName] = useState("");
 
   const [familyCount, setFamilyCount] = useState(2);
   const [members, setMembers] = useState([
-    { dni: "", email: "", member_type: "SOCIO_SIMPLE", is_minor: false, password: "", relation: "" },
+    { dni: "", email: "", first_name: "", last_name: "", member_type: "SOCIO_SIMPLE", is_minor: false, password: "", relation: "" },
   ]);
 
   const [loading, setLoading] = useState(false);
@@ -62,10 +66,8 @@ export default function SociosRegisterPage() {
     });
   }
 
-  // Ajuste cuando cambia familyCount
   useMemo(() => {
     syncMembersToCount(familyCount);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [familyCount]);
 
   function updateMember(index, patch) {
@@ -83,6 +85,8 @@ export default function SociosRegisterPage() {
     if (!password) return "Ingresá una contraseña.";
     if (password.length < 8) return "La contraseña debe tener al menos 8 caracteres.";
     if (!confirmPassword) return "Confirmá tu contraseña.";
+    if (!firstName.trim()) return "Ingresá tu nombre.";
+    if (!lastName.trim()) return "Ingresá tu apellido.";
     if (password !== confirmPassword) return "Las contraseñas no coinciden.";
     return null;
   }
@@ -90,6 +94,8 @@ export default function SociosRegisterPage() {
   function validateFamily() {
     if (!rDni.trim()) return "Ingresá el DNI del responsable.";
     if (!rEmail.trim()) return "Ingresá el email del responsable.";
+    if (!rFirstName.trim()) return "Ingresá el nombre del responsable.";
+    if (!rLastName.trim()) return "Ingresá el apellido del responsable.";
     if (!rPassword || rPassword.length < 8) return "Contraseña del responsable inválida (mínimo 8).";
     if (!rConfirmPassword) return "Confirmá la contraseña del responsable.";
     if (rPassword !== rConfirmPassword) return "Las contraseñas del responsable no coinciden.";
@@ -124,6 +130,8 @@ export default function SociosRegisterPage() {
           body: JSON.stringify({
             dni: dni.trim(),
             email: email.trim(),
+            first_name: firstName.trim(),
+            last_name: lastName.trim(),
             password,
             confirmPassword,
             member_type: memberType,
@@ -156,12 +164,15 @@ export default function SociosRegisterPage() {
           responsible: { dni: rDni.trim(), email: rEmail.trim(), password: rPassword, member_type: rMemberType },
           members: members.map((m) => ({
             dni: m.dni.trim(),
-            email: m.email.trim(),
+            email: m.is_minor ? "" : m.email.trim(),
+            first_name: (m.first_name ?? "").trim(),
+            last_name: (m.last_name ?? "").trim(),
             member_type: m.member_type,
             is_minor: Boolean(m.is_minor),
             password: m.is_minor ? m.password : "",
             relation: m.relation?.trim() || null,
           })),
+
         }),
       });
 
@@ -244,6 +255,8 @@ export default function SociosRegisterPage() {
           <IndividualRegisterForm
             dni={dni} setDni={setDni}
             email={email} setEmail={setEmail}
+            firstName={firstName} setFirstName={setFirstName}
+            lastName={lastName} setLastName={setLastName}
             memberType={memberType} setMemberType={setMemberType}
             password={password} setPassword={setPassword}
             confirmPassword={confirmPassword} setConfirmPassword={setConfirmPassword}
@@ -254,6 +267,8 @@ export default function SociosRegisterPage() {
             <Divider label="Plan familiar" />
             <FamilyRegisterForm
               rDni={rDni} setRDni={setRDni}
+              rFirstName={rFirstName} setRFirstName={setRFirstName}
+              rLastName={rLastName} setRLastName={setRLastName}
               rEmail={rEmail} setREmail={setREmail}
               rMemberType={rMemberType} setRMemberType={setRMemberType}
               rPassword={rPassword} setRPassword={setRPassword}

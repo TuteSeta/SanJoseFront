@@ -72,7 +72,7 @@ export default function SociosDashboardPage() {
     user?.nombre ||
     "Socio Barrio Santo";
 
-  const memberId = user?.member_number; // listo para cuando lo tengas
+  const memberId = user?.member_number; 
   const dni = user?.dni || "-";
   const email = user?.email || "-";
 
