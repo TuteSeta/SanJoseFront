@@ -9,6 +9,7 @@ import { useEffect, useMemo, useState } from 'react';
  * ]
  * o bien { items: [...] }
  */
+
 export function usePlantel({ endpoint = '/api/plantel', onlyActivas = true } = {}) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);

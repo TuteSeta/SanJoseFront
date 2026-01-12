@@ -65,10 +65,9 @@ export default function Hero() {
       />
 
       <section
-        className={`relative isolate overflow-hidden w-full transition-opacity duration-700 ${
-          mounted ? "opacity-100" : "opacity-0"
-        }`}
-       
+        className={`relative isolate overflow-hidden w-full transition-opacity duration-700 ${mounted ? "opacity-100" : "opacity-0"
+          }`}
+
       >
         <div className="relative z-10 mx-auto max-w-7xl px-6 pt-20 md:pt-24 pb-12">
           <div className="grid gap-10 lg:gap-12 lg:grid-cols-12 items-center">
