@@ -18,7 +18,7 @@ async function verifyJWT(token) {
   }
 }
 
-export async function middleware(req) {
+export async function proxy(req) {
   const { pathname } = req.nextUrl;
 
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {

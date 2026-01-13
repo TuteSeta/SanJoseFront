@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import NavBar from "../../../components/ui/NavBar"; // ajustá si cambia
-import NAV_ITEMS from "../../../components/ui/navItems"; // ajustá si cambia
+import NavBar from "../../../components/ui/NavBar";
+import NAV_ITEMS from "../../../components/ui/navItems";
 
 import RegisterPageShell from "../../../components/register/RegisterPageShell";
 import RegisterModeToggle from "../../../components/register/RegisterModeToggle";
@@ -161,7 +161,14 @@ export default function SociosRegisterPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          responsible: { dni: rDni.trim(), email: rEmail.trim(), password: rPassword, member_type: rMemberType },
+          responsible: {
+            dni: rDni.trim(),
+            email: rEmail.trim(),
+            first_name: rFirstName.trim(),
+            last_name: rLastName.trim(),
+            password: rPassword,
+            member_type: rMemberType,
+          },
           members: members.map((m) => ({
             dni: m.dni.trim(),
             email: m.is_minor ? "" : m.email.trim(),
@@ -172,7 +179,6 @@ export default function SociosRegisterPage() {
             password: m.is_minor ? m.password : "",
             relation: m.relation?.trim() || null,
           })),
-
         }),
       });
 

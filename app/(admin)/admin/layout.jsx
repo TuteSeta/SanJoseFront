@@ -167,7 +167,6 @@ export default function AdminLayout({ children }) {
           </main>
         </div>
 
-        {/* Footer */}
         <div className="mt-4 text-center text-xs text-white/40">
           © {new Date().getFullYear()} Barrio Santo
         </div>
