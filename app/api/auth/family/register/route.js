@@ -139,7 +139,7 @@ async function getOrCreateUser({ dni, email, password, member_type, is_minor, fi
 }
 
 export async function POST(req) {
-  let body = null; // ✅ fuera del try
+  let body = null; 
 
   try {
     body = await req.json().catch(() => null);
@@ -304,13 +304,15 @@ export async function POST(req) {
 
     if (err?.code === "23505") {
       switch (err?.constraint) {
+        case "ux_user_single_family":
+          return bad("Algún miembro (o el responsable) ya pertenece a otro plan familiar.", 409);
+
+        case "ux_family_one_responsible":
+          return bad("El grupo familiar ya tiene un responsable asignado.", 409);
+
         case "family_group_members_user_id_key":
         case "uq_family_group_members_user_id":
           return bad("Algún miembro ya pertenece a otro plan familiar.", 409);
-
-        case "users_dni_key":
-        case "uq_users_dni":
-          return bad("Ya existe una cuenta con ese DNI.", 409);
 
         case "family_groups_responsible_user_id_key":
         case "uq_family_groups_responsible_user_id":
@@ -320,6 +322,7 @@ export async function POST(req) {
           return bad("Conflicto por datos duplicados (UNIQUE).", 409);
       }
     }
+
 
     console.error("FAMILY_REGISTER_ERROR:", err);
     return bad(err?.message || "Error interno.", 500);
