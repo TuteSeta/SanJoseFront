@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import NavBar from "../../../components/ui/NavBar";
@@ -66,7 +66,7 @@ export default function SociosRegisterPage() {
     });
   }
 
-  useMemo(() => {
+  useEffect(() => {
     syncMembersToCount(familyCount);
   }, [familyCount]);
 

@@ -18,10 +18,10 @@ function NavItem({ href, label, active }) {
     <Link
       href={href}
       className={[
-        "block rounded-xl px-3 py-2 text-sm transition",
+        "block rounded-xl px-3 py-2 text-sm font-medium transition !text-white",
         active
-          ? "bg-white/10 text-white"
-          : "text-white/70 hover:text-white hover:bg-white/5",
+          ? "bg-white/20 ring-1 ring-white/20"
+          : "opacity-80 hover:opacity-100 hover:bg-white/10",
       ].join(" ")}
     >
       {label}
@@ -117,10 +117,10 @@ export default function AdminLayout({ children }) {
               BS
             </div>
             <div>
-              <div className="text-sm font-semibold leading-tight">
+              <div className="text-sm font-semibold leading-tight text-white">
                 Barrio Santo — Admin
               </div>
-              <div className="text-xs text-white/60">
+              <div className="text-xs text-white/80">
                 {user?.email} · <span className="uppercase">{user?.role}</span>
               </div>
             </div>
@@ -138,13 +138,13 @@ export default function AdminLayout({ children }) {
         <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[260px_1fr]">
           {/* Sidebar */}
           <aside className="rounded-2xl border border-white/10 bg-white/5 p-3">
-            <div className="px-2 pb-2 text-xs uppercase tracking-wide text-white/50">
+            <div className="px-2 pb-2 text-xs font-bold uppercase tracking-wide text-white">
               Secciones
             </div>
 
-            <nav className="space-y-1">
+            <nav className="space-y-1 ">
               {activeMap.map((item) => (
-                <NavItem
+                <NavItem 
                   key={item.href}
                   href={item.href}
                   label={item.label}
@@ -153,9 +153,9 @@ export default function AdminLayout({ children }) {
               ))}
             </nav>
 
-            <div className="mt-4 rounded-xl border border-white/10 bg-white/5 p-3">
-              <div className="text-xs text-white/60">Tip</div>
-              <div className="mt-1 text-sm text-white/80">
+            <div className="mt-4 rounded-xl border border-white/20 bg-white/10 p-3">
+              <div className="text-xs font-semibold text-white">Tip</div>
+              <div className="mt-1 text-sm text-white">
                 Para cambios sensibles (socios/pagos), usá siempre la cuenta ADMIN.
               </div>
             </div>
@@ -167,7 +167,8 @@ export default function AdminLayout({ children }) {
           </main>
         </div>
 
-        <div className="mt-4 text-center text-xs text-white/40">
+        {/* Footer */}
+        <div className="mt-4 text-center text-xs font-medium text-white/70">
           © {new Date().getFullYear()} Barrio Santo
         </div>
       </div>
